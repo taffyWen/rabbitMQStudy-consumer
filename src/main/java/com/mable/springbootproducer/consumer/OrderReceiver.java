@@ -26,7 +26,7 @@ public class OrderReceiver {
 			key = "order.#")
 			) */ //绑定exchange/queue
 	
-	@RabbitListener(bindings = @QueueBinding(
+	@RabbitListener(bindings = @QueueBinding(  //注解会自动在rabbitmq服务绑定exchange+queue以及路由键
 			value = @Queue(value = ConstantsSetting.RABBIT_QUEUE_NAME, 
 							durable = "true"), 
 			exchange = @Exchange(value = ConstantsSetting.RABBIT_EXCHANGE, 
@@ -36,7 +36,7 @@ public class OrderReceiver {
 			key = ConstantsSetting.RABBIT_ROUTING_KEY)
 			)
 	@RabbitHandler //标识，有消息过来，要处理
-	public void onOrderMessage(@Payload Order order, 
+	public void onOrderMessage(@Payload Order order, //@Payload 消息体
 			@Headers Map<String, Object> headers, 
 			Channel channel) throws Exception {
 		
